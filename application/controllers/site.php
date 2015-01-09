@@ -2,14 +2,15 @@
 
 class Site extends CI_Controller {
 
-	public function home($username, $password)
-	{
-		echo "username  : ". $username;
-		echo "password  : ". $password;
 
-
-		$this->load->view("home");
-	}
+    public function login(){
+        $this->load->view('login');
+    }
+    
+    public function register(){
+        $this->load->view('register');
+        
+    }
 }
 
 ?>

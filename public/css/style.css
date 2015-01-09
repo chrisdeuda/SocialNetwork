@@ -16,3 +16,27 @@ body{
 	margin-bottom: 15px;
 
 }
+.logoImg{
+    width:100%;
+    margin-bottom:15px;
+    height:75%;
+}
+
+
+.body-bg{
+  padding: 0;
+  margin: 0;
+  //background: #f2f2f2 url() no-repeat center top;
+
+  width: 100%;
+  display: table;
+}
+
+input{
+
+}
+
+#footer{
+  margin-top:100px;
+
+}
