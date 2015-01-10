@@ -23,50 +23,141 @@ class User extends CI_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model('models_register');
+        $this->load->model('models_console');
+        
         
     }
 
     public function register(){
-        $form['femail']      = $this->input->post('username');
-        $form['username']   = $this->input->post('username');
-        $form['password']   = $this->input->post('password');
-        $form['reTypePasswor'] = $this->input->post('reTypePassword');
-        $form['fname']      = $this->input->post('firstname');
-        $form['lname']      = $this->input->post('lastname');
-        $form['gender']     = $this->input->post('gender');
-        $form['birthMonth'] = $this->input->post('birthMonth');
-        $form['birthYear']  = $this->input->post('birthYear');
-        $form['birthDay']   = $this->input->post('birthDay');
+        $success_validation = FALSE;
+        $is_email_exists = FALSE;
+        $is_username_exists = FALSE;
         
+        $data = $this->_processRegForm();
         
+        //$this->password       = $this->input->post('password');
+        //$this->reTypePassword = $this->input->post('reTypePassword');
         
+        if ($this->password !== $this->reTypePassword ) {
+            $success_validation = FALSE;
+            echo "echo not the same";
+        } else if ( $this->password == $this->reTypePassword ){
+            echo "same" . $this->password . " " . $this->reTypePassword;
+        }
+        $is_email_exists = $this->_checkDataExist( TBL_USER_PROFILE, "EMAIL" , $this->email );
+        $is_username_exists = $this->_checkDataExist( TBL_USERS, "USERNAME" , $this->username );
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        echo "USERNAME" . $user ;
-        
-        
-        
-        
-        if (isset($user) || empty($user)){
-            //echo "No result";
+        //user must change email
+        if ($is_email_exists == TRUE) {
+            $success_validation = FALSE;
         } else {
-            //echo "Found something". $user;
+            $success_validation = TRUE;
         }
         
+        //user must change username
+        if ($is_username_exists == TRUE) {
+            $success_validation = FALSE;
+            echo "change your username";
+        } else {
+            $success_validation = TRUE;
+        }
         
+        //if (isset($user) || empty($user)){
+           // $this->models_register->insert_new_user( $data['form'], $data['user'],$this->username, $this->user_id);
+        //} else {
+            
+        //}
         
+        	/*
+
+        EMAIL
+        FIRST_NAME
+        LAST_NAME
+        GENDER
+        STATUS
+        AGE
+        ADDRESS
+        BIRTHDATE
+        CONTACT
+        IMAGE
+        DATE_JOINED
+        ACTIVATED
+        */
+              
+    }
+    /**
+     * get all values base on ajax reques
+     * @return data array
+     */
+    private function _processRegForm(){
+        /* $this->user_id    = $this->_generateId();
+        $this->email      = $this->input->post('username');
+        $this->username   = $this->input->post('username');
+        $this->password   = $this->input->post('password');
+        $this->reTypePassword = $this->input->post('reTypePassword');
+        $this->fname      = $this->input->post('firstname');
+        $this->lname      = $this->input->post('lastname');
+        $this->gender     = $this->input->post('gender');
+        $this->birthMonth = $this->input->post('birthMonth');
+        $this->birthYear  = $this->input->post('birthYear');
+        $this->birthDay   = $this->input->post('birthDay');
+        $this->date_joined      = $this->_getDateNow();
+        */
         
+        $this->user_id    = $this->_generateId();
+        $this->email      = "hacker@gmail.com";
+        $this->username   = "my_username1";
+        $this->password   = "1";
+        $this->reTypePassword = "0asdfasdf";
+        $this->fname      = "fname";
+        $this->lname      = "lastname";
+        $this->gender     = "e";
+        $this->birthMonth = "df";
+        $this->birthYear  = "d";
+        $this->birthDay   = "sdf";
+        $this->date_joined      = $this->_getDateNow();
+        $this->profile_pic = DEFAULT_IMAGE;
         
-           
+        $this->position = 0;
+        
+        $data['form'] = array( "ID" => NULL,
+            "USER_ID"       => $this->user_id,
+            "EMAIL" => $this->email,
+            "FIRST_NAME"    => $this->fname,
+            "LAST_NAME"     => $this->lname,
+            "MI"            => $this->mi,
+            "GENDER"        => $this->gender,
+            "ADDRESS"       => $this->address,
+            "CONTACT"       => $this->contactno,
+            "DATE_JOINED"   => $this->date_joined,
+            "IMAGE"         => $this->profile_pic,
+            "ACTIVATED"     => 0,
+        );
+                
+        $data['user'] = array("ID" => NULL,
+           "USER_ID" => $this->user_id,
+           "USERNAME" => $this->username,
+           "PASSWORD" => md5($this->password),
+           "USER_TYPE" => $this->position
+        );
+        
+        return $data;
+    }
+    /**
+     * For checking if particular data already exists
+     * @param type $table_name - must be a valid table name
+     * @param type $table_column - must ba
+     * @param type $data
+     * @return boolean
+     */
+    private function _checkDataExist( $table_name = "", $table_column = "", $data ="") {
+        $SQL = "SELECT `USER_ID` FROM `{$table_name}` WHERE `{$table_column}` = '{$data}'";
+        $query = $this->db->query( $SQL );
+        if ( $query->num_rows() <= 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
     
     public function checkUserExists(){
@@ -84,7 +175,32 @@ class User extends CI_Controller {
         
     }
     
+     private function _generateId(){
+        //sample 2013-random - seconds
+        $time = time();
+        $year =  date('Y', $time);
+        //$actual_time = date('s', $time); 
+
+        //$random = rand(1, 500);
+        $user_id = $year. '-'. $this->_getTimeNow();
+
+        return $user_id;
+    }
     
+    private function _getDateNow(){
+        $date = date ('Y-m-d');
+        return $date;
+
+    }
+
+    private function _getTimeNow(){
+        $time = time();
+        $actual_time = date('his', $time);
+        
+        return $actual_time;
+    
+    }
+
     
     
 }

@@ -36,6 +36,21 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+/*
+|--------------------------------------------------------------------------
+| User Define Constact
+|--------------------------------------------------------------------------
+| It is use for some dynamic path 
+|
+|
+
+|
+*/
+define('DEFAULT_IMAGE',					'images/default.jpg');
+define('TBL_USERS',					'usersecurity');
+define('TBL_USER_PROFILE',					'userinfo');
+
+
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
