@@ -40,9 +40,9 @@
                 <div class="col-md-6 col-md-offset-4 col-md-5" >
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <center><h2>  Free Registration</h1></center>
+                            <center><h2> Sign Up !</h1></center>
                             <div sytle="clear:both"> </div>
-                             <form role="form">
+                             <form role="form" action="<?php echo base_url(). 'user/register'?>" method="POST" id="frm-register">
                                     <div class="form-group">
                                         <label class="sr-only"for="lastname">Lastname </label>
                                         <input type="text" class="form-control" id = "lastname" placeholder = "Last Name">
@@ -52,15 +52,19 @@
                                         <input type="text" class="form-control" id = "firstname" placeholder = "First Name">
                                     </div>
                                     <div class="form-group">
-                                        <label class = "sr-only" for = "Email">Email</label>
-                                        <input type="text" class="form-control" id = "email" placeholder = "Email">
+                                        <label class = "sr-only" for = "email">Email</label>
+                                        <input type="text" class="form-control" id = "email" placeholder = "Email: example@yahoo.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class = "sr-only" for = "username">Username</label>
+                                        <input type="text" class="form-control" id = "username" placeholder = "Username:">
                                     </div>
                                     <div class="form-group">
                                         <label class = "sr-only" for = "password">Password</label>
                                         <input type="text" class="form-control" id = "password" placeholder = "Password">
                                     </div>
                                     <div class="form-group">
-                                        <label class = "sr-only" for = "reenterpassword">Password</label>
+                                        <label class = "sr-only" for = "reenterpassword">Retype Password</label>
                                         <input type="text" class="form-control" id = "reenterpassword" placeholder = "Re-enter Password">
                                     </div>
                                     <div class="form-group">
@@ -84,14 +88,14 @@
                                                 </select>
                                             </div>
                                             <div class="col-xs-4">
-                                               <select class="form-control cols-xs-1"placeholder="Month">
+                                               <select class="form-control cols-xs-1"placeholder="Month" id="birthday" >
                                                     <option>01</option>
                                                     <option>02</option>
                                                     <option>03</option>
                                                 </select>
                                             </div>
                                             <div class="col-xs-4">
-                                               <select class="form-control cols-xs-1"placeholder="Month">
+                                               <select class="form-control cols-xs-1"placeholder="Month" id="birthyear" >
                                                     <option>1994</option>
                                                     <option>1995</option>
                                                     <option>1996</option>
@@ -107,7 +111,7 @@
                                             <div class="col-xs-4">
                                                 <div class="radio">
                                                   <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                                    <input type="radio" name="optionsRadios" id="opt-gender" value="M" checked>
                                                     Male
                                                   </label>
                                                 </div>
@@ -115,7 +119,7 @@
                                             <div class="col-xs-4">
                                                 <div class="radio">
                                                   <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                                    <input type="radio" name="optionsRadios" id="opt-gender" value="F" checked>
                                                     Female
                                                   </label>
                                                 </div>
@@ -126,9 +130,11 @@
 
 
                                 <p class="navbar-text"><small>By clicking on Sign up, you agree on the <mark>Terms of Use Agreement</mark> </small> </p>
-                                <button type="submit" class="btn btn-success pull-right"> Sign Up</button>
+                                <button id="btn-sign-up" type="submit" class="btn btn-success pull-right"> Sign Up</button>
 
-                            </form>
+
+                            <!--</form> -->
+
                         </div>
                     </div>
                 </div>
@@ -147,6 +153,7 @@
     </body>
     <script src="<?php echo base_url(). 'public/js/jquery-2.1.1.js'; ?>" type="text/javascript"> </script>
     <script src="<?php echo base_url(). 'public/js/bootstrap.js' ?>" type="text/javascript"> </script>
+    <script src="<?php echo base_url(). 'public/js/registration.js' ?>" type="text/javascript"> </script>
 
 
 </html>
