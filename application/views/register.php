@@ -51,21 +51,27 @@
                                         <label class = "sr-only" for = "firstname">First Name</label>
                                         <input type="text" class="form-control" id = "firstname" placeholder = "First Name">
                                     </div>
-                                    <div class="form-group">
+                                    <div id="email-group"class="form-group form-horizontal has-success has-feedback">
                                         <label class = "sr-only" for = "email">Email</label>
-                                        <input type="text" class="form-control" id = "email" placeholder = "Email: example@yahoo.com">
+                                        <input type="text" class="form-control" id = "email" placeholder = "Email: example@yahoo.com" aria-describedby="inputSuccess3Status">
+                                        <span id="icon"class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                        <span id="status" class="text-danger" ><small><small>(Please add a valid email)</small></small></span>
                                     </div>
-                                    <div class="form-group">
+                                    <div id="username-group" class="form-group">
                                         <label class = "sr-only" for = "username">Username</label>
                                         <input type="text" class="form-control" id = "username" placeholder = "Username:">
+                                        <span id="icon"class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                        <span id="status" class="text-danger" ><small><small>(Username Alreay exists)</small></small></span>
                                     </div>
                                     <div class="form-group">
                                         <label class = "sr-only" for = "password">Password</label>
                                         <input type="text" class="form-control" id = "password" placeholder = "Password">
                                     </div>
-                                    <div class="form-group">
+                                    <div id="retypepassword-group"class="form-group">
                                         <label class = "sr-only" for = "reenterpassword">Retype Password</label>
                                         <input type="text" class="form-control" id = "reenterpassword" placeholder = "Re-enter Password">
+                                        <span id="icon"class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="false"></span>
+                                        <span id="status" class="text-danger" ><small><small>(Please Type Your password correctly )</small></small></span>
                                     </div>
                                     <div class="form-group">
                                         <label  class = "form-inline" for = "birthdate">BirthDate</label>

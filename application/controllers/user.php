@@ -40,9 +40,9 @@ class User extends CI_Controller {
         
         if ($this->password !== $this->reTypePassword ) {
             $success_validation = FALSE;
-            echo "echo not the same";
+            //echo "echo not the same";
         } else if ( $this->password == $this->reTypePassword ){
-            echo "same" . $this->password . " " . $this->reTypePassword;
+            //echo "same" . $this->password . " " . $this->reTypePassword;
         }
         $is_email_exists = $this->_checkDataExist( TBL_USER_PROFILE, "EMAIL" , $this->email );
         $is_username_exists = $this->_checkDataExist( TBL_USERS, "USERNAME" , $this->username );
@@ -57,32 +57,19 @@ class User extends CI_Controller {
         //user must change username
         if ($is_username_exists == TRUE) {
             $success_validation = FALSE;
-            echo "change your username";
+            //echo "change your username";
         } else {
             $success_validation = TRUE;
         }
         
-        //if (isset($user) || empty($user)){
-           // $this->models_register->insert_new_user( $data['form'], $data['user'],$this->username, $this->user_id);
-        //} else {
-            
-        //}
+        if ( $success_validation == TRUE ){
+            $this->models_register->insert_new_user( $data['form'], $data['user'],$this->username, $this->user_id);
+            echo json_encode( array("status"=>1));
+        } else {
+            echo json_encode( array("status"=>0));
+        }
         
-        	/*
 
-        EMAIL
-        FIRST_NAME
-        LAST_NAME
-        GENDER
-        STATUS
-        AGE
-        ADDRESS
-        BIRTHDATE
-        CONTACT
-        IMAGE
-        DATE_JOINED
-        ACTIVATED
-        */
               
     }
     /**
@@ -90,7 +77,7 @@ class User extends CI_Controller {
      * @return data array
      */
     private function _processRegForm(){
-        /* $this->user_id    = $this->_generateId();
+        $this->user_id    = $this->_generateId();
         $this->email      = $this->input->post('username');
         $this->username   = $this->input->post('username');
         $this->password   = $this->input->post('password');
@@ -101,9 +88,10 @@ class User extends CI_Controller {
         $this->birthMonth = $this->input->post('birthMonth');
         $this->birthYear  = $this->input->post('birthYear');
         $this->birthDay   = $this->input->post('birthDay');
-        $this->date_joined      = $this->_getDateNow();
-        */
+        $this->date_joined      = time();
         
+       
+        /*
         $this->user_id    = $this->_generateId();
         $this->email      = "hacker@gmail.com";
         $this->username   = "my_username1";
@@ -114,8 +102,8 @@ class User extends CI_Controller {
         $this->gender     = "e";
         $this->birthMonth = "df";
         $this->birthYear  = "d";
-        $this->birthDay   = "sdf";
-        $this->date_joined      = $this->_getDateNow();
+        $this->birthDay   = "sdf";*/
+        //$this->date_joined      = $this->_getDateNow();
         $this->profile_pic = DEFAULT_IMAGE;
         
         $this->position = 0;
@@ -167,15 +155,35 @@ class User extends CI_Controller {
     
     public function checkUsernameExist(){
         
+        $username = $this->input->post('username');
+        
+       
+        $is_email_exists = $this->_checkDataExist( TBL_USERS, "USERNAME" , $username );
+        if ( $is_email_exists == TRUE) {
+            $data = array("status" => 1, "message"=>"Username Already");
+            echo json_encode($data) ;
+        } else {
+            $data = array("status" => 0, "message"=>"ok");
+            echo json_encode($data) ;
+        }
+        
         
     }
     
     public function checkEmailExist(){
+        $email = $this->input->post('email');
         
-        
+        $is_email_exists = $this->_checkDataExist( TBL_USER_PROFILE, "EMAIL" , $email );
+        if ( $is_email_exists == TRUE) {
+            $data = array("status" => 1, "message"=>"Email Exists Already");
+            echo json_encode($data) ;
+        } else {
+            $data = array("status" => 0, "message"=>"ok");
+            echo json_encode($data) ;
+        }
     }
     
-     private function _generateId(){
+    private function _generateId(){
         //sample 2013-random - seconds
         $time = time();
         $year =  date('Y', $time);

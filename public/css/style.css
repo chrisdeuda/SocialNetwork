@@ -26,7 +26,7 @@ body{
 .body-bg{
   padding: 0;
   margin: 0;
-  //background: #f2f2f2 url() no-repeat center top;
+  //background: #f2f2f2 url(../img/bg.jpg) no-repeat center top;
 
   width: 100%;
   display: table;
