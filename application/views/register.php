@@ -41,34 +41,38 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <center><h2> Sign Up !</h1></center>
+                            <div id="error-message" class="alert alert-danger sr-only">
+                                <p id="error-header"> <strong> Warning!</strong> Please Check the Required Fields</p>
+                                <p id="error-text"></p>
+                            </div>
                             <div sytle="clear:both"> </div>
                              <form role="form" action="<?php echo base_url(). 'user/register'?>" method="POST" id="frm-register">
                                     <div class="form-group">
-                                        <label class="sr-only"for="lastname">Lastname </label>
+                                        <label class=""for="lastname">Lastname <span>* </span> </label>
                                         <input type="text" class="form-control" id = "lastname" placeholder = "Last Name">
                                     </div>
                                     <div class="form-group">
-                                        <label class = "sr-only" for = "firstname">First Name</label>
+                                        <label class = "" for = "firstname">First Name <span>*</span></label>
                                         <input type="text" class="form-control" id = "firstname" placeholder = "First Name">
                                     </div>
                                     <div id="email-group"class="form-group form-horizontal has-success has-feedback">
-                                        <label class = "sr-only" for = "email">Email</label>
+                                        <label class = "" for = "email">Email<span>*</span></label>
                                         <input type="text" class="form-control" id = "email" placeholder = "Email: example@yahoo.com" aria-describedby="inputSuccess3Status">
                                         <span id="icon"class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                                         <span id="status" class="text-danger" ><small><small>(Please add a valid email)</small></small></span>
                                     </div>
                                     <div id="username-group" class="form-group">
-                                        <label class = "sr-only" for = "username">Username</label>
+                                        <label class = "" for = "username">Username<span>*</span></label>
                                         <input type="text" class="form-control" id = "username" placeholder = "Username:">
                                         <span id="icon"class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                                         <span id="status" class="text-danger" ><small><small>(Username Alreay exists)</small></small></span>
                                     </div>
                                     <div class="form-group">
-                                        <label class = "sr-only" for = "password">Password</label>
+                                        <label class = "" for = "password">Password<span>*</span></label>
                                         <input type="text" class="form-control" id = "password" placeholder = "Password">
                                     </div>
                                     <div id="retypepassword-group"class="form-group">
-                                        <label class = "sr-only" for = "reenterpassword">Retype Password</label>
+                                        <label class = "" for = "reenterpassword">Retype Password<span>*</span></label>
                                         <input type="text" class="form-control" id = "reenterpassword" placeholder = "Re-enter Password">
                                         <span id="icon"class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="false"></span>
                                         <span id="status" class="text-danger" ><small><small>(Please Type Your password correctly )</small></small></span>

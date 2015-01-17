@@ -1,8 +1,21 @@
+var default_validation = { "status": false , "message" : "" };
+
+var $validation = {
+    "is_valid_email"    :   { "status": false , "message" : "" },
+    "is_valid_username" :   { "status": false , "message" : "" },
+    "is_valid_password" :   { "status": false , "message" : "" },
+    "is_valid_firstname":   { "status": false , "message" : "" },
+    "is_valid_lastname" :   { "status": false , "message" : "" },
+}
+
+var is_success_validation = false;
+
 $(document).ready(function(){
     $Form = {
 
         init: function(){
             $Form.processForm();
+
 
            $('input').each(function(){
                 var id = this.id;
@@ -19,23 +32,33 @@ $(document).ready(function(){
 
 
         },
+        // Testing Area for Developing Function
+        // =====================================================================
+
+        testCase: function(){
+            alert( "result" + $validation.is_valid_email.status);
+
+        },
+
+
 
         // Elemensts Handler Such As Button Input
         // =====================================================================
         processForm: function(){
+
+            /*
             $('#btn-sign-up').submit(function(event){
                 console.log("Triggers Sign UP click");
                 event.preventDefault();
                 alert("Trigger click");
                 //$Form.collectData();
 
-            });
+            });*/
 
              $('#btn-sign-up').click(function(event){
-                console.log("Triggers Sign UP click");
                 event.preventDefault();
-                alert("Trigger click");
-                $Form.collectData();
+                $Form.checkFormValidation("");
+                //$Form.collectData();
 
             });
 
@@ -85,7 +108,7 @@ $(document).ready(function(){
             form_action = $('#frm-register').attr('action');
 
 
-            alert("LInk" + form_action);
+            //alert("LInk" + form_action);
 
             console.log(birthDate + birthDay + birthYear + gender);
 
@@ -113,12 +136,7 @@ $(document).ready(function(){
                 success:
                     function(data){
                         alert(data);
-
-
                         $result = JSON.parse(data);
-
-
-
                         if ( $result.status == 1) {
                             console.log("save success");
                         } else if ( $result.status == 0){
@@ -131,6 +149,76 @@ $(document).ready(function(){
 
         },
 
+
+
+
+
+        checkFormValidation: function( array_form ){
+            is_success_validation = true;
+
+            var $firstname = $('input[id="firstname"]');
+            var $lastname = $('input[id="lastname"]');
+            var error_text = 'error-text';
+            var $error_message = $('#error-message');
+
+            default_validation.message = "";
+
+
+            if ( $firstname.val() == "" ) {
+                default_validation.message = default_validation.message + "<p>" + "*Empty First name" + "</p>";
+                is_success_validation = false;
+            }
+
+            if ( $lastname.val() == "" ) {
+                default_validation.message = default_validation.message + "<p>" + "*Empty Last Name" + "</p>";
+                is_success_validation = false;
+            }
+
+
+            $('input[id="username"]').trigger('blur');
+            if ( $validation.is_valid_password.status == false) {
+                default_validation.message = default_validation.message + "<p>" + $validation.is_valid_password.message + "</p>";
+                is_success_validation = false;
+            }
+
+            $('input[id="email"]').trigger('blur');
+            if ( $validation.is_valid_email.status == false) {
+                default_validation.message = default_validation.message + "<p>" + $validation.is_valid_email.message + "</p>";
+                console.log( $validation.is_valid_email.message);
+                is_success_validation = false;
+            }
+
+            $('input[id="username"]').trigger('blur');
+            if ( $validation.is_valid_username.status == false) {
+                default_validation.message = default_validation.message + "<p>" + $validation.is_valid_username.message+ "</p>";
+                console.log( $validation.is_valid_username.message);
+                is_success_validation = false;
+            }
+
+
+            if ( is_success_validation == false){
+                console.log("Failed Validation");
+
+                $error_message.removeClass('sr-only');
+                $error_message.find( "#" + error_text).remove();
+
+                $('#error-header').after( "<p id='"+ error_text+"'> </p>");
+
+                $error_message.find( "#" + error_text).append( default_validation.message );
+
+            } else {
+                $error_message.addClass('sr-only');
+                $error_message.find( "#" + error_text).remove();
+                console.log("Ready To Save...");
+
+                $Form.collectData();
+
+            }
+
+        },
+
+
+
         checkPasswordMatch: function( password_match ){
             $password = $('input[id="password"]');
             $retypePassword = $('input[id="reenterpassword"]');
@@ -140,18 +228,22 @@ $(document).ready(function(){
             retypepassword_text = $.trim($retypePassword.val());
 
             if ( password_text == ""  || retypepassword_text == "" ) {
-
+                $validation.is_valid_password.status = false;
+                $validation.is_valid_password.message = "Please Add your Password";
 
             } else {
 
                 if ( password_text == retypepassword_text) {
+                    $validation.is_valid_password.status = true;
+                    $validation.is_valid_password.message = "ok";
                     $Form.changeInputGroupProperty( password_match, 'has-success', 'glyphicon-ok', 'text-success', "Ok");
 
                 } else if ( password_text != retypepassword_text) {
-                    $Form.changeInputGroupProperty( password_match, 'has-error', 'glyphicon-remove', 'text-danger', "Please Type Your password correctly");
+                    $validation.is_valid_password.status = false;
+                    $validation.is_valid_password.message = "Please Type Your password correctly";
+                    $Form.changeInputGroupProperty( password_match, 'has-error', 'glyphicon-remove', 'text-danger', $validation.is_valid_password.message);
                 }
             }
-
 
         },
 
@@ -159,7 +251,6 @@ $(document).ready(function(){
 
         // GUI Manipulation
         // =====================================================================
-
         initGroupProperty: function( the_child ){
 
             $child  = $( "#" + the_child );
@@ -226,19 +317,24 @@ $(document).ready(function(){
 
             if ( email_text == "" ) {
                 validate_success = false;
-                //empty just do nothing
+                $validation.is_valid_email.status = false;
+                $validation.is_valid_email.message = "Please provide your Email Address for contact.";
 
             } else if ( email_text  != "" ){
                 is_valid_email = $Form.validateEmail( email_text );
                 if ( is_valid_email == true ) {
                     validate_success = true;
                 } else {
-                    $Form.changeInputGroupProperty( the_email_input, 'has-warning', 'glyphicon-warning-sign', 'text-warning', "Invalid Email");
+                    $Form.changeInputGroupProperty( the_email_input, 'has-warning', 'glyphicon-warning-sign', 'text-warning', "Invalid Email Address");
+                    $validation.is_valid_email.status = false;
+                    $validation.is_valid_email.message = "Invalid Email Address";
                     return;
                 }
             }
 
             if (  validate_success == true ){
+                $validation.is_valid_username.status = true;
+                $validation.is_valid_username.message = "ok";
                 $Form.sendEmailRequest(the_email_input ,  email_text );
 
             }
@@ -255,8 +351,8 @@ $(document).ready(function(){
 
             if ( username_text == "" ) {
                 validate_success = false;
-
-
+                $validation.is_valid_username.status = false;
+                $validation.is_valid_username.message = "Empty Username";
             } else if ( username_text  != "" ){
                  $Form.sendUsernameRequest( the_username_id,  username_text );
 
@@ -268,8 +364,6 @@ $(document).ready(function(){
 
         // @AJAX Request
         // =====================================================================
-
-
         validateEmail : function (email) {
             var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
@@ -294,10 +388,15 @@ $(document).ready(function(){
                         var $result = JSON.parse(data);
 
                         if ( $result.status  == 0) {
+                            $validation.is_valid_email.status = true;
+                            $validation.is_valid_email.message = "ok";
+
                             $Form.changeInputGroupProperty( the_email_id, 'has-success', 'glyphicon-ok', 'text-success', "Ok");
 
                         } else if ( $result.status  == 1) {
-                            $Form.changeInputGroupProperty( the_email_id, 'has-error', 'glyphicon-remove', 'text-danger', "Email Address already exists");
+                            $validation.is_valid_email.status = false;
+                            $validation.is_valid_email.message = "Email Address already exists";
+                            $Form.changeInputGroupProperty( the_email_id, 'has-error', 'glyphicon-remove', 'text-danger', $validation.is_valid_email.message);
                         }
 
                     },
@@ -324,9 +423,13 @@ $(document).ready(function(){
                         var $result = JSON.parse(data);
 
                         if ( $result.status  == 0) {
-                            $Form.changeInputGroupProperty( the_username_id, 'has-success', 'glyphicon-ok', 'text-success', "Ok");
+                            $validation.is_valid_username.status = true;
+                            $validation.is_valid_username.message = "ok";
+                            $Form.changeInputGroupProperty( the_username_id, 'has-success', 'glyphicon-ok', 'text-success', "ok");
                         } else if ( $result.status  == 1) {
-                            $Form.changeInputGroupProperty( the_username_id, 'has-error', 'glyphicon-remove', 'text-danger', "Choose another Username");
+                            $validation.is_valid_username.status = false;
+                            $validation.is_valid_username.message = "Choose another Username";
+                            $Form.changeInputGroupProperty( the_username_id, 'has-error', 'glyphicon-remove', 'text-danger', $validation.is_valid_username.message);
                         }
                     },
 

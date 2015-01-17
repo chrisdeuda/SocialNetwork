@@ -78,7 +78,7 @@ class User extends CI_Controller {
      */
     private function _processRegForm(){
         $this->user_id    = $this->_generateId();
-        $this->email      = $this->input->post('username');
+        $this->email      = $this->input->post('email');
         $this->username   = $this->input->post('username');
         $this->password   = $this->input->post('password');
         $this->reTypePassword = $this->input->post('reTypePassword');
