@@ -1,0 +1,53 @@
+SMALLER TASK
+[] Email Validation
+[x] Login User
+[x] Registration User
+
+
+**********
+LARGER TASK
+
+-------------
+SELLER SIDE
+-------------
+[] Uploading of Images
+    [X] Uploading the Images
+    [X] Make the web pages LInk of Uploading connected to main form
+    [X] Saving the Images Path
+    [X] Processing the forms
+    [X] Viewing of Uploaded Items
+    [X] Saving the the other Data to Item_List
+    [] User Profile Picture
+    [] User Items Settings
+    [X] Adding Validation of form in uploading
+[] Search Engine
+    [] Creating Queries
+    [] Display Result of Queries (Graphically)
+    [] Viewing of items after search
+[] Reservation of Items
+[] Chat System
+[] Messaging System
+
+    [X] Conversation
+    [X] Exchanging Messages Through Network
+    [X] Timer for Updating Incoming Messages
+    [X] Display The Messages after user typed
+    [X] Successfully exchange message
+    [X] Modifify the table for database for user_one and user_two status (read/unread)
+    [] Add Ajax Search for Friends
+        [] GUI
+        [] Functionalities (Working Links for connecting conversation)
+    [X] Scrollbox for messages
+    [X] Division of longer messages(Pagenation)
+    [] Create a Temporary storage for Messages(Dummy Table) for Queue
+
+----------
+ADMIN
+----------
+
+
+
+
+BUGS
+[X] #1.
+[X] #2.

@@ -163,6 +163,7 @@
     </body>
     <script src="<?php echo base_url(). 'public/js/jquery-2.1.1.js'; ?>" type="text/javascript"> </script>
     <script src="<?php echo base_url(). 'public/js/bootstrap.js' ?>" type="text/javascript"> </script>
+    <script src="<?php echo base_url(). 'public/js/check-login.js' ?>" type="text/javascript"> </script>
     <script src="<?php echo base_url(). 'public/js/registration.js' ?>" type="text/javascript"> </script>
 
 
