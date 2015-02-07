@@ -2,7 +2,6 @@ $(document).ready(function(){
 
 
     $Form = {
-
         init: function(){
             $Form.clearValue('username');
             $Form.clearValue('password');
@@ -26,12 +25,10 @@ $(document).ready(function(){
                 $Form.collectData();
 
             });
-
-
         },
 
 
-                // Processing Form Values
+        // Processing Form Values
         // =====================================================================
 
         collectData: function(){
@@ -46,8 +43,6 @@ $(document).ready(function(){
                 $Form.sendLoginRequest( $.trim(send_url),  $.trim($username.val()), $.trim($password.val()) );
 
             }
-
-
         },
 
         // @GUI Manipulation
@@ -100,9 +95,6 @@ $(document).ready(function(){
                             window.location =  $result.forward_url;
 
                         }
-
-
-
                     },
 
             });
@@ -123,12 +115,5 @@ $(document).ready(function(){
 
     $Form.init();
 
-
-
-
-
-
-
-
-
 });
+

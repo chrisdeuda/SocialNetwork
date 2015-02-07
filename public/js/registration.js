@@ -135,8 +135,11 @@ $(document).ready(function(){
                 cache:false,
                 success:
                     function(data){
-                        alert(data);
+                        //alert(data);
+
                         $result = JSON.parse(data);
+
+                        console.log( $result);
                         if ( $result.status == 1) {
                             console.log("save success");
                         } else if ( $result.status == 0){
@@ -148,8 +151,6 @@ $(document).ready(function(){
             });
 
         },
-
-
 
 
 
@@ -441,4 +442,4 @@ $(document).ready(function(){
 
 
 
-});
+});=

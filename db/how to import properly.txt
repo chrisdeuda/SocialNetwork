@@ -1,0 +1,7 @@
+IN PhpMyAdmin 
+1. Create a database and name it as a connect
+
+--maket it lower case to prevent error from the php scripts
+2. Goto connect database.
+
+3. Now you can import the tables using the file connect(1).sql
